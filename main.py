@@ -36,9 +36,9 @@ async def on_message(message):
 
     await bot.process_commands(message)  # this needs to be here at the end for message functions
 
-@bot.command
-async def hello(ctx):  # returns a message when a user type '!hello' in chat
-    await ctx.send('Hello there!')
+@bot.command()  # bot.commands() needs a bracket following it unlike bot.events that dont
+async def hellob(ctx):  # ctx means context or the person or event that triggered the command
+    await ctx.send(f"{ctx.author.mention} bingus greets you.")  # ctx.send sends the message in the channel it was triggered
 
-bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

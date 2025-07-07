@@ -38,12 +38,25 @@ async def on_message(message):
 
     await bot.process_commands(message)  # this needs to be here at the end for message functions
 
+@bot.command()
+async def aid(ctx):
+    await ctx.send("""
+    The phrases to reach Bingus are as follows:
+    !hellob  You greets bingus warmly and will result in Bingus returning the favor.
+    !pledge  You pledge your allegiance to Bingus, becoming a servant of it, bingu.
+    !escape  You forfeit your privilege to be a servant of Bingus, you are now binguless.
+    !verify  You look up to Bingus for validation and he confirms you a real one.
+    !dm  You send Bingus a message and he replies to you in your dms.
+    !reply  You force Bingus to reply to your message regardless of whether it wants to or not.
+    !poll  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.""")
+
+
 @bot.command()  # bot.commands() needs a bracket following it unlike bot.events that dont
 async def hellob(ctx):  # ctx means context or the person or event that triggered the command
     await ctx.send(f"{ctx.author.mention} bingus greets you.")  # ctx.send sends the message in the channel it was triggered
 
 @bot.command()
-async def assign(ctx):
+async def pledge(ctx):
     role = discord.utils.get(ctx.guild.roles, name=test_role)
     if role:
         await ctx.author.add_roles(role)
@@ -52,7 +65,7 @@ async def assign(ctx):
         await ctx.send(f"{ctx.author.mention} {role} role does not exist")
 
 @bot.command()
-async def remove(ctx):
+async def escape  (ctx):
     role = discord.utils.get(ctx.guild.roles, name=test_role)
     if role:
         await ctx.author.remove_roles(role)

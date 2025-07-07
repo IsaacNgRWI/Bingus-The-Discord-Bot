@@ -14,14 +14,16 @@ intents.message_content = True
 intents.members = True
 intents.presences = True
 
-client = commands.Bot(command_prefix = '!', intents=discord.Intents.default())  # sets up the command prefix
+bot = commands.Bot(command_prefix = '!', intents=intents)  # sets up the command prefix
 
-@client.event
+@bot.event
 async def on_ready():
     print('bot is now online')
     print('-----------------------------------------')
 
-@client.command
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+
+@bot.command
 async def hello(ctx):  # returns a message when a user type '!hello' in chat
     await ctx.send('Hello there!')
 

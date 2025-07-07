@@ -49,7 +49,16 @@ async def assign(ctx):
         await ctx.author.add_roles(role)
         await ctx.send(f"{ctx.author.mention} you are now a servent of bingus")
     else:
-        await ctx.send(f"{ctx.authot.mention} {role} role does not exist")
+        await ctx.send(f"{ctx.author.mention} {role} role does not exist")
+
+@bot.command()
+async def remove(ctx):
+    role = discord.utils.get(ctx.guild.roles, name=test_role)
+    if role:
+        await ctx.author.remove_roles(role)
+        await ctx.send(f"{ctx.author.mention}, you are now free of the shackles of bingus")
+    else:
+        await ctx.send(f"{ctx.author.mention}, you were never granted the role of {role}")
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

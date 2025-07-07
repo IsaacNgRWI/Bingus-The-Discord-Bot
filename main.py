@@ -23,6 +23,10 @@ async def on_ready():
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 
+@bot.event
+async def on_member_join(member):
+    await member.send(f'{member.name}, bingus greets you.')
+
 @bot.command
 async def hello(ctx):  # returns a message when a user type '!hello' in chat
     await ctx.send('Hello there!')

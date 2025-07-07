@@ -60,5 +60,17 @@ async def remove(ctx):
     else:
         await ctx.send(f"{ctx.author.mention}, you were never granted the role of {role}")
 
+@bot.command()
+@commands.has_role(test_role)
+async def verify(ctx):
+    await ctx.send(f"{ctx.author.mention}, you are a certified servent of bingus")
+
+@verify.error
+async def verify_error(ctx, error):
+    if isinstance(error, commands.MissingRole):
+        await ctx.send(f"{ctx.author.mention}, you are no true bingu")
+    else:
+        await ctx.send(f"error: {error}")
+
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

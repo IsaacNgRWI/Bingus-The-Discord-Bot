@@ -81,5 +81,12 @@ async def dm(ctx, *, msg):
 async def reply(ctx):
     await ctx.reply("yes what you want")
 
+@bot.command()
+async def poll(ctx, *, question):
+    embedded_message = discord.Embed(title="make your opinions known", description=question)
+    poll_message = await ctx.send(embed=embedded_message)
+    await poll_message.add_reaction("😞")
+    await poll_message.add_reaction("👍")
+
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

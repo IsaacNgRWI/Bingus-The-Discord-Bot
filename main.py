@@ -21,8 +21,6 @@ async def on_ready():
     print(f'bot is now online, bot {bot.user.name}')
     print('-----------------------------------------')
 
-bot.run(token, log_handler=handler, log_level=logging.DEBUG)
-
 @bot.event
 async def on_member_join(member):
     await member.send(f'{member.name}, bingus greets you.')
@@ -32,7 +30,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if "hippos" in message.content.lower():
+    if "hippo" in message.content.lower():
         await message.delete()
         await message.channel.send(f"{message.author.mention} bingus does not like hippos")
 
@@ -42,4 +40,5 @@ async def on_message(message):
 async def hello(ctx):  # returns a message when a user type '!hello' in chat
     await ctx.send('Hello there!')
 
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 # client.run(bot api address)

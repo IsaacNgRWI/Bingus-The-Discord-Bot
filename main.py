@@ -72,5 +72,14 @@ async def verify_error(ctx, error):
     else:
         await ctx.send(f"error: {error}")
 
+@bot.command()
+# !dm hello world  # "hello world" would be the msg
+async def dm(ctx, *, msg):
+    await ctx.author.send(f"tf did you mean by {msg}")
+
+@bot.command()
+async def reply(ctx):
+    await ctx.reply("yes what you want")
+
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

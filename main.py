@@ -27,6 +27,17 @@ bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 async def on_member_join(member):
     await member.send(f'{member.name}, bingus greets you.')
 
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    if "hippos" in message.content.lower():
+        await message.delete()
+        await message.channel.send(f"{message.author.mention} bingus does not like hippos")
+
+    await bot.process_commands(message)  # this needs to be here at the end for message functions
+
 @bot.command
 async def hello(ctx):  # returns a message when a user type '!hello' in chat
     await ctx.send('Hello there!')

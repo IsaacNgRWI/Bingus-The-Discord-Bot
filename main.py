@@ -7,6 +7,8 @@ import os
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
 client = commands.Bot(command_prefix = '!', intents=discord.Intents.default())  # sets up the command prefix
 
 @client.event

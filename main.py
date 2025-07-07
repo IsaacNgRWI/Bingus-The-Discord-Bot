@@ -16,6 +16,8 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix = '!', intents=intents)  # sets up the command prefix
 
+test_role = "bingu"
+
 @bot.event
 async def on_ready():
     print(f'bot is now online, bot {bot.user.name}')
@@ -39,6 +41,15 @@ async def on_message(message):
 @bot.command()  # bot.commands() needs a bracket following it unlike bot.events that dont
 async def hellob(ctx):  # ctx means context or the person or event that triggered the command
     await ctx.send(f"{ctx.author.mention} bingus greets you.")  # ctx.send sends the message in the channel it was triggered
+
+@bot.command()
+async def assign(ctx):
+    role = discord.utils.get(ctx.guild.roles, name=test_role)
+    if role:
+        await ctx.author.add_roles(role)
+        await ctx.send(f"{ctx.author.mention} you are now a servent of bingus")
+    else:
+        await ctx.send(f"{ctx.authot.mention} {role} role does not exist")
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

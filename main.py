@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
+from discord import FFmpegPCMAudio
 import logging
+from asyncio import sleep
 from dotenv import load_dotenv
 import os
 from datetime import datetime
@@ -101,6 +103,20 @@ async def poll(ctx, *, question):
     poll_message = await ctx.send(embed=embedded_message)
     await poll_message.add_reaction("😞")
     await poll_message.add_reaction("👍")
+
+@bot.command(pass_context = True)
+async def p (ctx):
+    await ctx.send("plankton request received")
+    if ctx.author.voice:
+        channel = ctx.message.author.voice.channel
+        source = FFmpegPCMAudio('plankton-augh.mp3')
+        voice = await channel.connect()
+        voice.play(source)
+        await sleep(3)
+        await ctx.voice_client.disconnect()
+
+    else:
+        await ctx.send("You need to be in a voice channel to hear plankton")
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

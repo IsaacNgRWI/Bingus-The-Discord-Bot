@@ -17,7 +17,7 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix = '!', intents=intents)  # sets up the command prefix
 
-test_role = "bingu"
+bingu_role = "bingu"
 
 @bot.event
 async def on_ready():
@@ -38,19 +38,18 @@ async def on_message(message):
         await message.delete()
         await message.channel.send(f"{message.author.mention} bingus does not like hippos")
 
-    await bot.process_commands(message)  # this needs to be here at the end for message functions
+    await bot.process_commands(message)  # this needs to be here at the end for on_message functions
 
 @bot.command()
 async def aid(ctx):
-    await ctx.send("""
-    The phrases to reach Bingus are as follows:
-    !hellob  You greets bingus warmly and will result in Bingus returning the favor.
-    !pledge  You pledge your allegiance to Bingus, becoming a servant of it, bingu.
-    !escape  You forfeit your privilege to be a servant of Bingus, you are now binguless.
-    !verify  You look up to Bingus for validation and he confirms you a real one.
-    !dm  You send Bingus a message and he replies to you in your dms.
-    !reply  You force Bingus to reply to your message regardless of whether it wants to or not.
-    !poll  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.""")
+    embedded_message = discord.Embed(title="The phrases to reach Bingus are as follows:", description="""!hellob:  You greets bingus warmly and will result in Bingus returning the favor.
+    !pledge:  You pledge your allegiance to Bingus, becoming a servant of it, bingu.
+    !escape:  You forfeit your privilege to be a servant of Bingus, you are now binguless.
+    !verify:  You look up to Bingus for validation and he confirms you a real one.
+    !dm:  You send Bingus a message and he replies to you in your dms.
+    !reply:  You force Bingus to reply to your message regardless of whether it wants to or not.
+    !poll:  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.""")
+    await ctx.send(embed=embedded_message)
 
 
 @bot.command()  # bot.commands() needs a bracket following it unlike bot.events that dont
@@ -59,7 +58,7 @@ async def hellob(ctx):  # ctx means context or the person or event that triggere
 
 @bot.command()
 async def pledge(ctx):
-    role = discord.utils.get(ctx.guild.roles, name=test_role)
+    role = discord.utils.get(ctx.guild.roles, name=bingu_role)
     if role:
         await ctx.author.add_roles(role)
         await ctx.send(f"{ctx.author.mention} you are now a servent of bingus")
@@ -68,7 +67,7 @@ async def pledge(ctx):
 
 @bot.command()
 async def escape  (ctx):
-    role = discord.utils.get(ctx.guild.roles, name=test_role)
+    role = discord.utils.get(ctx.guild.roles, name=bingu_role)
     if role:
         await ctx.author.remove_roles(role)
         await ctx.send(f"{ctx.author.mention}, you are now free of the shackles of bingus")
@@ -76,7 +75,7 @@ async def escape  (ctx):
         await ctx.send(f"{ctx.author.mention}, you were never granted the role of {role}")
 
 @bot.command()
-@commands.has_role(test_role)
+@commands.has_role(bingu_role)
 async def verify(ctx):
     await ctx.send(f"{ctx.author.mention}, you are a certified servent of bingus")
 
@@ -94,7 +93,7 @@ async def dm(ctx, *, msg):
 
 @bot.command()
 async def reply(ctx):
-    await ctx.reply("yes what you want")
+    await ctx.reply("type shyt")
 
 @bot.command()
 async def poll(ctx, *, question):

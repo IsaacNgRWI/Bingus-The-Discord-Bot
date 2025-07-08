@@ -3,6 +3,7 @@ from discord.ext import commands
 import logging
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -20,7 +21,8 @@ test_role = "bingu"
 
 @bot.event
 async def on_ready():
-    print(f'bot is now online, bot {bot.user.name}')
+    print(f'bot is now online, bot: {bot.user.name}')
+    print(f"Initiation time: {datetime.now( )}")
     print('-----------------------------------------')
 
 @bot.event

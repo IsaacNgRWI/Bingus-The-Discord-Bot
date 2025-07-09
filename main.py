@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 
+from yt_dlp import YoutubeDL
+
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
@@ -16,6 +18,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.presences = True
+
+ydl_options = {"format" : "bestaudio" , "noplaylist" : True}
 
 bot = commands.Bot(command_prefix = '!', intents=intents)  # sets up the command prefix
 
@@ -105,18 +109,38 @@ async def poll(ctx, *, question):
     await poll_message.add_reaction("👍")
 
 @bot.command(pass_context = True)
-async def p (ctx):
+async def plankton (ctx):
     await ctx.send("plankton request received")
     if ctx.author.voice:
         channel = ctx.message.author.voice.channel
         source = FFmpegPCMAudio('plankton-augh.mp3')
         voice = await channel.connect()
         voice.play(source)
-        await sleep(3)
+        await sleep(4)
         await ctx.voice_client.disconnect()
 
     else:
         await ctx.send("You need to be in a voice channel to hear plankton")
+
+@bot.command()
+async def p(self, ctx, *, search):
+    voice_channel = ctx.author.voice.channel
+    if ctx.author.voice is False:
+        await ctx.send("You need to be in a voice channel to hear Bingus sing.")
+        return
+    else:
+        await voice_channel.connect
+
+    async with ctx.typing():
+        info = YoutubeDL.extract_info(f"ytsearch:{search}", download=False)
+        if "entries" in info:
+            info = info["entries"][0]
+        url = info["url"]
+        title = info["title"]
+        self.queue.append((url, title))
+        await ctx.send(f"Added to queue: __{title}__")
+    if not ctx.voice_client.is_playing():
+        await self.play_next(ctx)
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

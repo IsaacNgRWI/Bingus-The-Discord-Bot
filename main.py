@@ -151,6 +151,12 @@ async def play_next(self, ctx):
     elif not ctx.voice_client.is_playing():
         await ctx.send("queue is empty.")
 
+@bot.commands()
+async def skip(self, ctx):
+    if ctx.voice_client and ctx.voice_client.is_playing():
+        ctx.voice_client.stop()
+        await ctx.send("skipped")
+
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

@@ -142,5 +142,15 @@ async def p(self, ctx, *, search):
     if not ctx.voice_client.is_playing():
         await self.play_next(ctx)
 
+async def play_next(self, ctx):
+    if self.queue:
+        url, title = self.queue.pop(0)
+        source = await discord.FFmpegOpusAudio.from_probe(url, **ffmpeg_options)
+        ctx.voice_client.play(source, after=lambda _: self.client.loop.create_task(self.play_next(ctx)))
+        await ctx.send(f"Now playing __{title}__")
+    elif not ctx.voice_client.is_playing():
+        await ctx.send("queue is empty.")
+
+
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

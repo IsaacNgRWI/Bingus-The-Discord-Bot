@@ -20,6 +20,7 @@ intents.members = True
 intents.presences = True
 
 ydl_options = {"format" : "bestaudio" , "noplaylist" : True}
+ffmpeg_options = {"options": "-vn"}
 
 bot = commands.Bot(command_prefix = '!', intents=intents)  # sets up the command prefix
 
@@ -123,15 +124,28 @@ async def plankton (ctx):
         await ctx.send("You need to be in a voice channel to hear plankton")
 
 @bot.command()
-async def p(self, ctx, *, search):
-    voice_channel = ctx.author.voice.channel
-    if ctx.author.voice is False:
+async def p (ctx, *, search):
+    if not ctx.author.voice:
         await ctx.send("You need to be in a voice channel to hear Bingus sing.")
-        return
     else:
-        await voice_channel.connect
+        voice_channel = ctx.message.author.voice.channel
+        await ctx.send("Play request received")
+        async with ctx.typing():
+            with YoutubeDL(ydl_options) as ydl:
+                info = ydl.extract_info(f"ytsearch:{search}", download=False)
+                print(info)
+                if "entries" in info:
+                    info = info["entries"][0]
+                url = info["url"]
+                title = info["title"]
+                author = info["channel"]
+                await ctx.send(f"Now playing __{title}__ by __{author}__")
+                channel = ctx.author.voice.channel
+                await channel.connect()
+                source = await discord.FFmpegOpusAudio.from_probe(url, **ffmpeg_options)
+                await ctx.voice_client.play(source)
 
-    async with ctx.typing():
+'''    async with ctx.typing():
         info = YoutubeDL.extract_info(f"ytsearch:{search}", download=False)
         if "entries" in info:
             info = info["entries"][0]
@@ -151,11 +165,12 @@ async def play_next(self, ctx):
     elif not ctx.voice_client.is_playing():
         await ctx.send("queue is empty.")
 
-@bot.commands()
+@bot.command()
 async def skip(self, ctx):
     if ctx.voice_client and ctx.voice_client.is_playing():
         ctx.voice_client.stop()
         await ctx.send("skipped")
+        '''
 
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)

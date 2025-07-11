@@ -124,6 +124,14 @@ async def plankton (ctx):
         await ctx.send("You need to be in a voice channel to hear plankton")
 
 @bot.command()
+async def dc (ctx):
+    if not ctx.author.voice:
+        await ctx.send("monke im not even in your channel")
+    else:
+        await ctx.send("bye monke")
+        await ctx.voice_client.disconnect()
+
+@bot.command()
 async def p (ctx, *, search):
     if not ctx.author.voice:
         await ctx.send("You need to be in a voice channel to hear Bingus sing.")
@@ -139,10 +147,10 @@ async def p (ctx, *, search):
                 url = info["url"]
                 title = info["title"]
                 author = info["channel"]
-                await ctx.send(f"Now playing __{title}__ by __{author}__")
                 channel = ctx.author.voice.channel
                 await channel.connect()
                 source = await discord.FFmpegOpusAudio.from_probe(url, **ffmpeg_options)
+                await ctx.send(f"Now playing **{title}** by **{author}**")
                 await ctx.voice_client.play(source)
 
 '''    async with ctx.typing():

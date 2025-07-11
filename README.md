@@ -1,5 +1,11 @@
 # Bingus the Discord Bot
 
+## Project Outline
+This is Bingus, a bot I built to learn and test out discord bot functions.  
+It can do several things including play audio from youtube or file, respond to user input, and a few other things.  
+I will likely continue to expand on this project as time goes on to experiment with integrating different functions into 
+discord bots.
+
 ## Dependencies
 Dependencies used in this project can be found in `requirements.txt`  
 To install all project dependencies run the following line in the console.  

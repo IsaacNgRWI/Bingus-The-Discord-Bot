@@ -141,7 +141,7 @@ async def p (ctx, *, search):
         async with ctx.typing():
             with YoutubeDL(ydl_options) as ydl:
                 info = ydl.extract_info(f"ytsearch:{search}", download=False)
-                print(info)
+                # print(info)
                 if "entries" in info:
                     info = info["entries"][0]
                 url = info["url"]
@@ -152,34 +152,6 @@ async def p (ctx, *, search):
                 source = await discord.FFmpegOpusAudio.from_probe(url, **ffmpeg_options)
                 await ctx.send(f"Now playing **{title}** by **{author}**")
                 await ctx.voice_client.play(source)
-
-'''    async with ctx.typing():
-        info = YoutubeDL.extract_info(f"ytsearch:{search}", download=False)
-        if "entries" in info:
-            info = info["entries"][0]
-        url = info["url"]
-        title = info["title"]
-        self.queue.append((url, title))
-        await ctx.send(f"Added to queue: __{title}__")
-    if not ctx.voice_client.is_playing():
-        await self.play_next(ctx)
-
-async def play_next(self, ctx):
-    if self.queue:
-        url, title = self.queue.pop(0)
-        source = await discord.FFmpegOpusAudio.from_probe(url, **ffmpeg_options)
-        ctx.voice_client.play(source, after=lambda _: self.client.loop.create_task(self.play_next(ctx)))
-        await ctx.send(f"Now playing __{title}__")
-    elif not ctx.voice_client.is_playing():
-        await ctx.send("queue is empty.")
-
-@bot.command()
-async def skip(self, ctx):
-    if ctx.voice_client and ctx.voice_client.is_playing():
-        ctx.voice_client.stop()
-        await ctx.send("skipped")
-        '''
-
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)  # needs to be at the end (python sequential processing)
 # client.run(bot api address)

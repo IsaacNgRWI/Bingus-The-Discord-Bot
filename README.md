@@ -25,3 +25,5 @@ The phrases to reach Bingus are as follows:
 !dm:  You send Bingus a message and he replies to you in your dms.  
 !reply:  You force Bingus to reply to your message regardless of whether it wants to or not.  
 !poll:  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.  
+!plankton:  Bingus plays the plankton meme.
+!p *:  Bingus searches youtube for * and plays it in the voice channel.

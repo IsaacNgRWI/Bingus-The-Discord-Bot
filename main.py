@@ -66,7 +66,7 @@ async def on_message(message):
     await bot.process_commands(message)  # this needs to be here at the end for on_message functions
 
 @bot.command()
-async def help(ctx):
+async def aid (ctx):
     """
     A command that returns a string of the commands to reach Bingus
     :param ctx: ctx is the parameter discord.py takes that tell the bot to take in the context of the command
@@ -78,7 +78,9 @@ async def help(ctx):
     !verify:  You look up to Bingus for validation and he confirms you a real one.
     !dm:  You send Bingus a message and he replies to you in your dms.
     !reply:  You force Bingus to reply to your message regardless of whether it wants to or not.
-    !poll:  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.""")
+    !poll:  You summon Bingus to ascertain the opinion of the masses, collected as cute emojis.
+    !plankton:  Bingus plays the plankton meme.
+    !p *:  Bingus searches youtube for * and plays it in the voice channel.""")
     await ctx.send(embed=embedded_message)
 
 

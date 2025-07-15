@@ -10,7 +10,10 @@ discord bots.
 Dependencies used in this project can be found in `requirements.txt`  
 To install all project dependencies run the following line in the console.  
 `pip install -r requirements.txt`  
-In addition, FFmpeg is also required on the computer that will be running the bot in order for the voice channel related commands.
+In addition, FFmpeg is also required on the computer that will be running the bot in order for the voice channel related commands and run yt-dlp.  
+To install FFmpeg on windows, run the following line in the cmd terminal.  
+`winget install FFmpeg`  
+If you're on linux good luck you'll figure it out.
 
 ## Debugging 
 When the python code is running it will generate a log file titled `discord.log` and can be used for debugging purposes 
